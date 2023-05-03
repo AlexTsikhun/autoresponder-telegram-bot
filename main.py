@@ -4,11 +4,14 @@ from aiogram import Bot, Dispatcher, executor, types
 from db import Database
 import openai
 import os
+from dotenv import load_dotenv, find_dotenv
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token="5968643447:AAFOrspwnR14AhNAbljn5L1nq5t1Ly0F-1E")
-openai.api_key_path = 'key.txt'
+# Find .evn file
+load_dotenv(find_dotenv())
+bot = Bot(os.getenv('TOKEN'))
+openai.api_key = os.getenv('OPENAI_TOKEN')
 
 dp = Dispatcher(bot)
 db = Database("telegram_db")
