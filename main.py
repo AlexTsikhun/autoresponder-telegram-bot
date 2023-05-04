@@ -22,7 +22,7 @@ async def start(message: types.Message):
     if message.chat.type == "private":
         if not db.user_exists(message.from_user.id):
             db.add_user(message.from_user.id)
-        await bot.send_message(message.from_user.id, "Hi!")
+        await bot.send_message(message.from_user.id, "✉️🤖Hi! I'm a bot that replies to messages and sends out mailing!")
 
 
 @dp.message_handler(commands=["send2all"])
@@ -49,6 +49,7 @@ async def send2all(message: types.Message):
 
 @dp.message_handler()
 async def openai_response(message: types.Message):
+    # For avoid openai.error.APIConnectionError - can add try/except or restart bot
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt=message.text,
